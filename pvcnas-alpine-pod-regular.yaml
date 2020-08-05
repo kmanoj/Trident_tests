@@ -1,0 +1,31 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-nas-regular
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: sc-nas-regular
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pvpod1
+spec:
+  volumes:
+    - name: pv-nas-regular
+      persistentVolumeClaim:
+       claimName: pvc-nas-regular
+  containers:
+    - name: task-pv-container1
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+      volumeMounts:
+        - mountPath: "/data"
+          name: pv-nas-regular

@@ -1,0 +1,15 @@
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "backendName": "BackendForNAS-krb5p",
+    "managementLIF": "192.168.0.145",
+    "dataLIF": "192.168.0.142",
+    "svm": "svm2",
+    "username": "vsadmin",
+    "password": "Netapp1!",
+    "storage": [
+       {
+          "labels":{"security":"krb5p"},
+       }
+   ]
+}

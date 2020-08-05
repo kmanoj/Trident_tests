@@ -1,0 +1,31 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-nas-krb5p
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: sc-nas-krb5p
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pvpod2
+spec:
+  volumes:
+    - name: pv-nas-krb5p
+      persistentVolumeClaim:
+       claimName: pvc-nas-krb5p
+  containers:
+    - name: task-pv-container1
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+      volumeMounts:
+        - mountPath: "/data"
+          name: pv-nas-krb5p
