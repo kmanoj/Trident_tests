@@ -1,0 +1,39 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-iscsi-tenant1
+  namespace: tenant1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+  storageClassName: sc-san-tenant1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myweb-tenant1
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      volumes:
+      - name: pv-web-data-tenant1
+        persistentVolumeClaim:
+          claimName: pvc-iscsi-tenant1
+      containers:
+      - name: nginx-tenant1
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - mountPath: "/usr/share/nginx/html/"
+            name: pv-web-data-tenant1

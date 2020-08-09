@@ -1,0 +1,18 @@
+{
+    "version": 1,
+    "storageDriverName": "ontap-san",
+    "backendName": "tenant1-san",
+    "managementLIF": "192.168.0.170",
+    "dataLIF": "192.168.0.171","192.168.0.172",
+    "svm": "svm-tenant1",
+    "username": "vsadmin",
+    "password": "Netapp1!",
+    "storagePrefix": "tenant1",
+    "igroupName": "ig-tenant1",
+    "defaults": {
+        "spaceReserve": "volume",
+        "spaceAllocation": "false",
+        "snapshotPolicy": "default",
+        "snapshotReserve": "10"
+    }
+}
