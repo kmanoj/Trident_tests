@@ -1,0 +1,33 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-iscsi
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+  storageClassName: sc-san
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pvpod
+spec:
+  volumes:
+    - name: pv-san1
+      persistentVolumeClaim:
+       claimName: pvc-iscsi
+  containers:
+  - name: task-pv-container1
+    image: ubuntu:16.04
+    command:
+      - /bin/sh
+      - "-c"
+      - "sleep 60m"
+    volumeMounts:
+      - mountPath: "/data"
+        name: pv-san1
+  nodeSelector:
+    disktype: sas

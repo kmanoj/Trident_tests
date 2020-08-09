@@ -1,0 +1,17 @@
+{
+    "version": 1,
+    "storageDriverName": "ontap-san",
+    "managementLIF": "192.168.0.145",
+    "dataLIF": "192.168.0.151","192.168.0.152",
+    "svm": "svm2",
+    "username": "vsadmin",
+    "password": "Netapp1!",
+    "storagePrefix": "trident",
+    "igroupName": "iscsi-ig1",
+    "defaults": {
+        "spaceReserve": "volume",
+        "spaceAllocation": "false",
+        "snapshotPolicy": "default",
+        "snapshotReserve": "10"
+    }
+}
