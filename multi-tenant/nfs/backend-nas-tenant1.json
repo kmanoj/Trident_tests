@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "backendName": "tenant1-nas",
+    "managementLIF": "192.168.0.135",
+    "dataLIF": "192.168.0.132",
+    "svm": "svm-tenant1-nas",
+    "username": "vsadmin",
+    "password": "Netapp1!",
+    "defaults": {
+        "spaceReserve": "volume",
+        "spaceAllocation": "false",
+        "snapshotPolicy": "default",
+        "snapshotReserve": "10"
+    }
+}

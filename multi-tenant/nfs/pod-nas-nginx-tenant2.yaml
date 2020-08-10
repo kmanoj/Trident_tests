@@ -1,0 +1,42 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-nas-tenant2
+  namespace: tenant2
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+  storageClassName: sc-nas-tenant2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myweb-nas-tenant2
+  namespace: tenant2
+spec:
+  selector:
+    matchLabels:
+      app: nginx-nas
+  replicas: 1
+  template:
+    metadata:
+      name: nginx-nas
+      namespace: tenant2
+      labels:
+        app: nginx-nas
+    spec:
+      volumes:
+      - name: pv-web-nas-tenant2
+        persistentVolumeClaim:
+          claimName: pvc-nas-tenant2
+      containers:
+        - name: nginx-nas-tenant2
+          image: nginx:latest
+          ports:
+          - containerPort: 8080
+          volumeMounts:
+            - mountPath: "/usr/share/nginx/html/"
+              name: pv-web-nas-tenant2
